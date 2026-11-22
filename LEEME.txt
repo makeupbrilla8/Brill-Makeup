@@ -1,0 +1,29 @@
+BRILLA MAKEUP - ARCHIVOS DE LA TIENDA
+
+Este paquete contiene la primera versión de la tienda:
+- Catálogo conectado a la tabla public."Productos" de Supabase.
+- Búsqueda y filtro por categoría.
+- Carrito con cantidades y total.
+- Pedido armado para enviar por WhatsApp.
+- Acceso de administración con inicio de sesión de Supabase para agregar productos.
+
+ANTES DE PUBLICAR
+1. En app.js hay tres datos de configuración que todavía están como marcadores:
+   - SUPABASE_URL: URL del proyecto Supabase.
+   - SUPABASE_PUBLISHABLE_KEY: clave pública que empieza con sb_publishable_.
+   - WHATSAPP_NUMBER: número completo con código de país, solo números (Argentina: 549 + código de área + número, sin 0 ni 15).
+2. Nunca pegues una clave sb_secret_ en app.js, GitHub ni en el navegador.
+3. La clave sb_publishable_ está pensada para usarse en el navegador, siempre con RLS bien configurado.
+4. La tabla debe llamarse exactamente Productos y tener columnas compatibles:
+   id, nombre, descripcion, categoria, imagen, precio, stock.
+   Confirmaremos los nombres y tipos reales antes de probar la carga.
+5. La carga de productos necesita que el inicio de sesión de Supabase esté habilitado y que la política INSERT limitada a tu usuario siga activa.
+6. Las imágenes por ahora se agregan mediante una URL pública. Todavía no configuramos almacenamiento de imágenes en Supabase.
+
+PAGO
+El sitio permite elegir transferencia o efectivo y envía el pedido por WhatsApp. No procesa pagos automáticamente.
+
+ARCHIVOS
+index.html - estructura de la tienda
+styles.css - diseño adaptable a celular y computadora
+app.js - catálogo, carrito, conexión y administración
