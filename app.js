@@ -1,8 +1,7 @@
 // CONFIGURACIÓN: completaremos estos datos juntas antes de publicar.
-const SUPABASE_URL = "PEGAR_AQUI_URL_DEL_PROYECTO";
-const SUPABASE_PUBLISHABLE_KEY = "PEGAR_AQUI_CLAVE_PUBLICA_sb_publishable";
-const WHATSAPP_NUMBER = "PEGAR_AQUI_NUMERO_CON_CODIGO_PAIS_SIN_SIGNOS";
-
+const SUPABASE_URL = "https://peeezaodvzosqzjqfrhv.supabase.co/rest/v1/PROYECTO";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_bFQwFY1xHnFnU_hVa01vCA_xg_G2So7";
+const WHATSAPP_NUMBER = "5493743564397";
 let db = null;
 if (window.supabase && SUPABASE_URL.startsWith("https://") && SUPABASE_PUBLISHABLE_KEY.startsWith("sb_publishable_")) {
   db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
