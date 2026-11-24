@@ -10,7 +10,35 @@ if (window.supabase && SUPABASE_URL.startsWith("https://") && SUPABASE_PUBLISHAB
 const money = n => new Intl.NumberFormat("es-AR",{style:"currency",currency:"ARS",maximumFractionDigits:0}).format(Number(n)||0);
 const $ = id => document.getElementById(id);
 let products = [], cart = [], activeCategory = "Todos";
+function setupTransferDetails(){
+  const payment = $("payment");
+  const details = $("transfer-details");
+  const copyButton = $("copy-alias");
 
+  if(!payment || !details || !copyButton) return;
+
+  function updateTransfer(){
+    details.hidden = payment.value.toLowerCase() !== "transferencia";
+  }
+
+  payment.addEventListener("change", updateTransfer);
+  updateTransfer();
+
+  copyButton.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText("luanavalenzuela01");
+      copyButton.textContent = "¡Alias copiado!";
+    } catch {
+      copyButton.textContent = "No se pudo copiar";
+    }
+  });
+}
+
+if(document.readyState === "loading"){
+  document.addEventListener("DOMContentLoaded", setupTransferDetails);
+} else {
+  setupTransferDetails();
+}
 function showConfigNotice(){
   if(!db) $("products").innerHTML = '<div class="empty-state"><p>Estamos preparando la tienda 💗</p><p class="muted">Pronto vas a encontrar acá todos los productos de Brilla Makeup.</p></div>';
 }
@@ -25,7 +53,7 @@ async function loadProducts(){
 function renderFilters(){
   const cats=["Todos",...new Set(products.map(p=>p.categoria).filter(Boolean))];
   $("category-filters").innerHTML=cats.map(c=>`<button class="filter ${c===activeCategory?'active':''}" data-cat="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join("");
-  document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{activeCategory=b.dataset.cat;renderFilters();renderProducts();}));
+  document.querySelectorAll(".filter").forEach(b=>b.addEvmentListener("click",()=>{activeCategory=b.dataset.cat;renderFilters();renderProducts();}));
 }
 function renderProducts(){
   const q=$("search").value.trim().toLowerCase();
